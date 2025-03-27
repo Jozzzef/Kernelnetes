@@ -10,6 +10,7 @@ pub fn add_scalars(ctx: &Context) {
     let cq = create_command_queue(ctx);
     let prog = compile_program(FILE_LOC, ctx);
     let kernel = get_kernel(&prog, "add_scalars");
+    //need to add memory stuff here now ...
 }
 
 pub fn compile_program(path_to_file: &str, ctx: &Context) -> Program {
