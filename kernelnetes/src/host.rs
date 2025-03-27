@@ -1,6 +1,7 @@
 use opencl3 as cl3;
 use opencl3::platform::Platform;
 use opencl3::device::Device;
+use opencl3::context::Context;
 use std::ptr;
 
 pub fn install_opencl_streamline(){
@@ -75,15 +76,12 @@ pub fn get_devices(p: Platform, device_type: OCLDevices) -> Vec<Device>{
 
 }
 
-pub fn create_context(){
-
+pub fn create_context(device: &Device) -> Context {
+    Context::from_device(device)
+                    .expect("Context::from_device failed")
 }
 
-pub fn create_command_queue(){
-
-}
-
-pub fn easy_setup(){
+pub fn easy_setup() -> Context {
     init_host(); 
     let plat_vec = get_platforms();
     println!("PLATFORMS VECTOR PRINT ===========>");
@@ -93,8 +91,12 @@ pub fn easy_setup(){
     let d_vec = get_devices(plat_vec[0], OCLDevices::All); 
     for i in &d_vec {
         println!("DEVICE VECTOR PRINT ===========>");
-        println!("device name: {:#?} | vendor: {:#?}", i.name().unwrap(), i.vendor().unwrap());
+        println!("device name: {:#?} | vendor: {:#?} | driver version: {:#?}", 
+            i.name().unwrap(), 
+            i.vendor().unwrap(),
+            i.driver_version().unwrap());
     }
-    create_context(); 
-    create_command_queue();
+    let ctx = create_context(&d_vec[0]); 
+    println!("Context Created: {:?}", ctx);
+    ctx
 }
