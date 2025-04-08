@@ -8,7 +8,6 @@ fn main() {
     // Do actual execution (command queues -> programs -> kernels)
     // in apps folder is where you put your code
     let res = add_scalars(&ctx, 1.0, 2.0);
-    println!("{}", res)
+    println!("{}", res);
+    println!("___");
 }
-
-
