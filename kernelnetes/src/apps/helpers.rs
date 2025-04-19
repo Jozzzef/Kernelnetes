@@ -15,14 +15,13 @@ pub fn compile_program(path_to_file: &str, ctx: &Context) -> Program {
     }
     let program_source = std::fs::read_to_string(path_to_file)
         .expect("Failed to read kernel file");
-    Program::create_and_build_from_source(ctx, program_source.as_str(), "").unwrap()
+    Program::create_and_build_from_source(ctx, program_source.as_str(), "-cl-std=CL1.2 -D CL_ENABLE_PRINTF").unwrap()
 }
 
 pub fn create_command_queue(ctx: &Context) -> CommandQueue {
     CommandQueue::create_default_with_properties(ctx, 0, 0).unwrap()
 }
 
-pub fn get_kernel(program: &Program, kern_name: &str) -> Kernel {
-    Kernel::create(program, kern_name).expect("Kernel::create failed")
+pub fn get_kernel(program: &Program, kern_name: &str) ->  Kernel {
+    Kernel::create(program, kern_name).expect("the kernel creation failed")
 }
-

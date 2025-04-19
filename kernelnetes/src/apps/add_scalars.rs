@@ -11,7 +11,7 @@ use super::helpers::*;
 
 pub fn add_scalars(ctx: &Context, a: f32, b: f32) -> f32 {
     println!("add_scalar");
-    const FILE_LOC: &str = "./src/kernels/add_scalars.c";
+    const FILE_LOC: &str = "./src/kernels/add_scalars.cl";
     let cq = create_command_queue(ctx);
     let prog = compile_program(FILE_LOC, ctx);
     let krnl = get_kernel(&prog, "add_scalars");
